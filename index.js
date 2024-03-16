@@ -1,6 +1,6 @@
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 
-const UssdMenu = require('ussd-menu-builder');
+/*const UssdMenu = require('ussd-menu-builder');
 let menu = new UssdMenu();
 const express = require('express')
 const app = express()
@@ -35,7 +35,7 @@ const sendSMS = (to, msg) => {
         // res.json(error.toString());
     });
 }
-
+*/
 //GeminiPlugIn
 const Your_API_Key = process.env.GEMINI_API;
 const genAI = new GoogleGenerativeAI(Your_API_Key)
@@ -44,8 +44,13 @@ async function runAI(patient_num, sympt) {
     // For text-only input, use the gemini-pro model
     const model = genAI.getGenerativeModel({ model: "gemini-pro"})
   
-    const symptoms = sympt;
-    const prompt = "What disease am I likely to have with the following symptoms: "+symptoms+"? Please limit the response to a maximum of 90 characters.";
+    /*const symptoms = sympt;
+    const prompt = "What disease am I likely to have with the following symptoms: "+symptoms+"? Please limit the response to a maximum of 90 characters.";*/
+    const health_issues = "";
+    const allergies = "";
+    const dietRestrictions = "";
+    const diet = health_issues + allergies +dietRestrictions;
+    const prompt = "Suggest a menu for a person with the following preferences: " +diet;
     const result = await model.generateContent(prompt);
     const response = await result.response;
     const diseases = response.text();
@@ -53,7 +58,7 @@ async function runAI(patient_num, sympt) {
     console.log(diseases);
   }
 
-// Require the AT package
+/* Require the AT package
 const AfricasTalking = require("africastalking")(credentials);
 
 // Define inputs
@@ -142,4 +147,4 @@ app.post('/ussd', async function(req, res){
 });
 
 app.listen(PORT, () => console.log(`Running on port: ${PORT}` ));
-// run();
+// run();*/
